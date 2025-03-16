@@ -19,3 +19,16 @@ export async function GET(req: NextRequest) {
     await prisma.$disconnect();
   }
 }
+
+export async function POST(req: NextRequest) {
+  try {
+    
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Error when uploading a video" },
+      { status: 500 }
+    );
+  }finally{
+    await prisma.$disconnect()
+  }
+}
