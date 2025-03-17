@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 ///configuration
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
@@ -68,7 +68,9 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ video });
   } catch (error) {
-    console.log("Image upload failed", error);
-    return NextResponse.json({ error: "Image upload failed" }, { status: 500 });
+    console.log("Video upload failed", error);
+    return NextResponse.json({ error: "Video upload failed" }, { status: 500 });
+  }finally{
+    await prisma.$disconnect()
   }
 }
