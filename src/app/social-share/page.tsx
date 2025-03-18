@@ -21,18 +21,11 @@ import { Button } from "@/components/ui/button";
 const socialFormats = {
   "Instagram Square (1:1)": { width: 1080, height: 1080, aspectRatio: "1:1" },
   "Instagram Portrait (4:5)": { width: 1080, height: 1350, aspectRatio: "4:5" },
-  "Instagram Story (9:16)": { width: 1080, height: 1920, aspectRatio: "9:16" },
-  "Instagram Reel (9:16)": { width: 1080, height: 1920, aspectRatio: "9:16" },
-  "Facebook Post (1.91:1)": { width: 1200, height: 630, aspectRatio: "1.91:1" },
-  "Facebook Story (9:16)": { width: 1080, height: 1920, aspectRatio: "9:16" },
   "Facebook Cover (16:9)": { width: 820, height: 312, aspectRatio: "16:9" },
   "Twitter Post (16:9)": { width: 1600, height: 900, aspectRatio: "16:9" },
-  "LinkedIn Post (1.91:1)": { width: 1200, height: 627, aspectRatio: "1.91:1" },
   "LinkedIn Story (9:16)": { width: 1080, height: 1920, aspectRatio: "9:16" },
   "Pinterest Pin (2:3)": { width: 1000, height: 1500, aspectRatio: "2:3" },
-  "YouTube Thumbnail (16:9)": { width: 1280, height: 720, aspectRatio: "16:9" },
-  "YouTube Shorts (9:16)": { width: 1080, height: 1920, aspectRatio: "9:16" },
-  "TikTok Video (9:16)": { width: 1080, height: 1920, aspectRatio: "9:16" },
+  "YouTube Thumbnail (16:9)": { width: 1280, height: 720, aspectRatio: "16:9" }
 };
 
 type SocialFormat = keyof typeof socialFormats;
@@ -57,8 +50,14 @@ function SocialShare() {
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    event.preventDefault();
     const file = event.target.files?.[0];
     if (!file) return;
+    if (file.size > 25 * 1024 * 1024) {
+      alert("File size upto 25Mb allowed");
+      return;
+    }
+    console.log("File selected:", file.name, "Size:", file.size);
     setIsUploading(true);
     const formData = new FormData();
     formData.append("file", file);
