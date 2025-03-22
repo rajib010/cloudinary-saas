@@ -8,6 +8,8 @@ import {
 import { LogOutIcon, Menu } from "lucide-react";
 import { Button } from "./ui/button";
 import { useUser } from "@clerk/nextjs";
+import { Avatar } from "@radix-ui/react-avatar";
+import { AvatarFallback, AvatarImage } from "./ui/avatar";
 
 type HeaderComponentProps = {
   sidebarOpen: boolean;
@@ -21,7 +23,7 @@ export default function HeaderComponent({
   handleSignOut,
 }: HeaderComponentProps) {
   const { user } = useUser();
-  const emailAddress =user?.emailAddresses[0].emailAddress;
+  const emailAddress = user?.emailAddresses[0].emailAddress;
 
   const handleOpensidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -45,7 +47,16 @@ export default function HeaderComponent({
         </SignedOut>
         <SignedIn>
           <div className="flex gap-5">
-            <p>{emailAddress}</p>
+            {user && (
+              <Avatar>
+                <AvatarImage
+                className="w-8 h-8 rounded"
+                  src={user.imageUrl}
+                  alt={user.username || emailAddress}
+                />
+                <AvatarFallback>{user.username || emailAddress}</AvatarFallback>
+              </Avatar>
+            )}
             <LogOutIcon onClick={handleSignOut}>
               <SignOutButton />
             </LogOutIcon>

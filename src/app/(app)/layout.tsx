@@ -4,14 +4,8 @@ import React, { useState } from "react";
 import { useClerk } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import {
-  MenuIcon,
-  LayoutDashboardIcon,
-  Share2Icon,
-  UploadIcon,
-  ImageIcon,
-} from "lucide-react";
+import { usePathname } from "next/navigation";
+import { LayoutDashboardIcon, Share2Icon, UploadIcon } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -32,12 +26,7 @@ export default function AppLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const pathname = usePathname();
-  const router = useRouter();
   const { signOut } = useClerk();
-
-  const handleLogoClick = () => {
-    return router.push("/");
-  };
 
   const handleSignOut = async () => {
     await signOut();
@@ -55,7 +44,15 @@ export default function AppLayout({
           <SheetDescription className="flex flex-col gap-5 max-w-sm w-full items-center justify-center">
             {sideBarItems.map((item, index) => (
               <Button key={index} asChild>
-                <Link href={item.href} onClick={() => setSidebarOpen(false)}>{item.label}</Link>
+                <Link
+                  href={item.href}
+                  onClick={() => setSidebarOpen(false)}
+                  className={
+                    pathname === item.href ? "text-gold-600" : "text-white"
+                  }
+                >
+                  {item.label}
+                </Link>
               </Button>
             ))}
           </SheetDescription>
