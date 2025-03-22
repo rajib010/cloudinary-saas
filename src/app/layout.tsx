@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignOutButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
+import { Inter } from "next/font/google";
+
+
+const inter = Inter({subsets:["latin"]})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,19 +19,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`antialiased`}>
-          <header className="flex justify-end items-center p-4 gap-4 h-16 bg-slate-200 shadow-lg">
-            <SignedOut>
-              <SignInButton />
-              <SignUpButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-              <SignOutButton />
-            </SignedIn>
-          </header>
-          {children}
-        </body>
+        <body className={inter.className}>{children}</body>
       </html>
     </ClerkProvider>
   );

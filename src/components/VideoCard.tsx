@@ -126,18 +126,20 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
         <div className="flex items-center">
           <FileDown size={18} className="mr-2 text-secondary" />
           <div className="font-semibold">Compressed</div>
-            <div>{formatSize(Number(video.compressedSize))}</div>
+          <div>{formatSize(Number(video.compressedSize))}</div>
         </div>
       </Card>
       <div className="flex justify-between items-center mt-4">
         <div className="text-sm font-semibold">
-          Compression: {" "}
+          Compression:{" "}
           <span className="text-accent">{compressionPercentage}%</span>
         </div>
         <Button
-          onClick={()=> onDownload(getFullVideoUrl(video.publicId), video.title)}
+          onClick={() =>
+            onDownload(getFullVideoUrl(video.publicId), video.title)
+          }
         >
-          <Download size={16}/>
+          <Download size={16} />
         </Button>
       </div>
     </Card>
